@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("order")
@@ -20,13 +21,18 @@ public class OrderController {
         return service.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Order> getOrder(@PathVariable("id") int id){
+        return service.getOrder(id);
+    }
+
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public Order save(@RequestBody Order order){
         return service.save(order);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Order update(@RequestBody Order order){
         return service.update(order);
@@ -36,5 +42,10 @@ public class OrderController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") Integer id){
         return service.delete(id);
+    }
+
+    @GetMapping("/zona/{zona}")
+    public List<Order> findByZone(@PathVariable("zona") String zona){
+        return service.findByZone(zona);
     }
 }

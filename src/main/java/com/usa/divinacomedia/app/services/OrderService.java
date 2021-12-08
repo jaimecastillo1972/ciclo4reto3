@@ -17,17 +17,25 @@ public class OrderService {
         return repository.getAll();
     }
 
+    public Optional<Order> getOrder(int id){
+        return repository.getOrderById(id);
+    }
+
     public Order save(Order order){
+        Optional<Order> orderId=repository.lastUserId();
         if(order.getId()==null){
-            return order;
-        }else{
-            Optional<Order> existsOrder=repository.getOrderById(order.getId());
+            if (orderId.isEmpty()){
+                order.setId(1);
+            }else {
+                order.setId(orderId.get().getId() + 1);
+            }
+        }
+        Optional<Order> existsOrder=repository.getOrderById(order.getId());
             if (existsOrder.isEmpty()){
                 return repository.save(order);
             }else {
                 return order;
             }
-        }
     }
 
     public Order update(Order order){
@@ -63,5 +71,9 @@ public class OrderService {
             return true;
         }).orElse(false);
         return aBoolean;
+    }
+
+    public List<Order> findByZone(String zona){
+        return repository.findByZone(zona);
     }
 }

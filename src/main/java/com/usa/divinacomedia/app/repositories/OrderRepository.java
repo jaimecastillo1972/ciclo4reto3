@@ -25,7 +25,23 @@ public class OrderRepository {
         return repository.save(order);
     }
 
+    public void update(Order order) {
+        repository.save(order);
+    }
+
     public void delete(Integer id){
         repository.deleteById(id);
+    }
+
+    //public Optional<Order> getOrder(int id) {
+    //    return repository.findById(id);
+    //}
+
+    public Optional<Order> lastUserId(){
+        return repository.findTopByOrderByIdDesc();
+    }
+
+    public List<Order> findByZone(String zona) {
+        return repository.findByZone(zona);
     }
 }

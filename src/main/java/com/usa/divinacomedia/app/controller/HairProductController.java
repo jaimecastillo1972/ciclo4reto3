@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("hairproducts")
@@ -22,6 +23,11 @@ public class HairProductController {
     @GetMapping("/all") //GET
     public List<HairProduct> getAll(){
         return service.getAll();
+    }
+
+    @GetMapping("/{reference}")
+    public Optional<HairProduct> getProductById(@PathVariable("reference") String reference){
+        return service.getProductById(reference);
     }
 
     /**
