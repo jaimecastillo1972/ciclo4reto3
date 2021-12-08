@@ -4,6 +4,8 @@ package com.usa.divinacomedia.app.controller;
 import com.usa.divinacomedia.app.model.User;
 import com.usa.divinacomedia.app.services.UserService;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,11 @@ public class UserController {
     @GetMapping("/all") //GET
     public List<User> getUsers(){
         return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<User> getUser(@PathVariable("id") Integer id){
+        return service.getUserById(id);
     }
 
     /**

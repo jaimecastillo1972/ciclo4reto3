@@ -25,9 +25,9 @@ public class HairProductController {
         return service.getAll();
     }
 
-    @GetMapping("/{reference}")
-    public Optional<HairProduct> getProductById(@PathVariable("reference") String reference){
-        return service.getProductById(reference);
+    @GetMapping("/{id}")
+    public Optional<HairProduct> getProductById(@PathVariable("id") String id){
+        return service.getProductById(id);
     }
 
     /**
