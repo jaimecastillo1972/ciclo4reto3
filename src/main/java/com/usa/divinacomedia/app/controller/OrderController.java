@@ -22,7 +22,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Order> getOrder(@PathVariable("id") int id){
+    public Optional<Order> getOrder(@PathVariable("id") Integer id){
         return service.getOrder(id);
     }
 
@@ -44,7 +44,7 @@ public class OrderController {
         return service.delete(id);
     }
 
-    @GetMapping("/zona/{zona}")
+    @GetMapping("zona/{zona}")
     public List<Order> findByZone(@PathVariable("zona") String zona){
         return service.findByZone(zona);
     }

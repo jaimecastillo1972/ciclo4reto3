@@ -14,6 +14,10 @@ import java.util.Map;
 @AllArgsConstructor
 @Document(collection = "orders")
 public class Order {
+    public static String PENDING = "Pendiente";
+    public static String APROVED = "Aprobada";
+    public static String REJECTED = "Rechazada";
+
     @Id
     private Integer id;
     private Date registerDay;
