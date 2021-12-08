@@ -17,29 +17,26 @@ public class OrderService {
         return repository.getAll();
     }
 
-    public Optional<Order> getOrder(int id){
-        return repository.getOrderById(id);
+    public Optional<Order> getOrder(Integer id){
+        return repository.getOrder(id);
     }
 
-    public Order save(Order order){
-        Optional<Order> orderId=repository.lastUserId();
-        if(order.getId()==null){
-            if (orderId.isEmpty()){
-                order.setId(1);
-            }else {
-                order.setId(orderId.get().getId() + 1);
+    public Order save(Order order) {
+        if (order.getId() == null) {
+            return order;
+        } else {
+            Optional<Order> existsOrder = repository.getOrder(order.getId());
+            if (existsOrder.isPresent()) { //si coloca .isEmpty debo cambiar 2x1
+                return order; //cambio2xcambio1
+            } else {
+                return repository.save(order);//cambio1xcambio2
+
             }
         }
-        Optional<Order> existsOrder=repository.getOrderById(order.getId());
-            if (existsOrder.isEmpty()){
-                return repository.save(order);
-            }else {
-                return order;
-            }
     }
 
     public Order update(Order order){
-        Optional<Order> existsOrder=repository.getOrderById(order.getId());
+        Optional<Order> existsOrder=repository.getOrder(order.getId());
         if (existsOrder.isPresent()){
             if (order.getId()!=null){
                 existsOrder.get().setId(order.getId());
@@ -66,8 +63,8 @@ public class OrderService {
     }
 
     public boolean delete(Integer id){
-        Boolean aBoolean=repository.getOrderById(id).map(order->{
-            repository.delete(order.getId());
+        Boolean aBoolean=repository.getOrder(id).map(order->{
+            repository.delete(order);
             return true;
         }).orElse(false);
         return aBoolean;

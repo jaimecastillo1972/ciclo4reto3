@@ -13,12 +13,12 @@ public class OrderRepository {
     @Autowired
     private OrderCrudRepository repository;
 
-    public Optional<Order> getOrderById(Integer id){
-        return repository.findById(id);
-    }
-
     public List<Order> getAll(){
         return (List<Order>) repository.findAll();
+    }
+
+    public Optional<Order> getOrder(Integer id){
+        return repository.findById(id);
     }
 
     public Order save(Order order){
@@ -29,13 +29,9 @@ public class OrderRepository {
         repository.save(order);
     }
 
-    public void delete(Integer id){
-        repository.deleteById(id);
+    public void delete(Order order){
+        repository.delete(order);
     }
-
-    //public Optional<Order> getOrder(int id) {
-    //    return repository.findById(id);
-    //}
 
     public Optional<Order> lastUserId(){
         return repository.findTopByOrderByIdDesc();

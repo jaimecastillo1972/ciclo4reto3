@@ -17,7 +17,7 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping("/all")
-    public List<Order> getOrders(){
+    public List<Order> getAll(){
         return service.getAll();
     }
 
